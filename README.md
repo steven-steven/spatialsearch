@@ -2,6 +2,7 @@
 A playground UI to explore spatial search algorithms.
 
 <b> Product Demo: </b> https://steven-steven.github.io/spatialsearch/
+<b> Motivation: </b> https://stevenwhat.me/blog/indexing-with-spatial-search-algorithm
 
 <b> Tools: </b> 
 - A create-react-app
