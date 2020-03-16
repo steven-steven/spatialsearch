@@ -1,13 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import KDBush from 'kdbush';
+import Canvas from './Canvas';
+import ReactCursorPosition from 'react-cursor-position';
 
 const SCALE = 1;
-const OFFSET = 0;
+const OFFSET = 10;
 const WIDTH = 500;
 const HEIGHT = 500;
 
 const Button = styled.button`
-  height: 3em;
+  height: 4em;
   width: 6em;
   margin: 1em;
   font-weight: bold;
@@ -32,19 +35,23 @@ const Button = styled.button`
 `;
 
 const Controls = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
+  margin: 20px;
+`;
+
+const Step = styled.div`
+  display: block;
+  
+  > p{
+    font-size: 13px;
+  }
 `;
 
 const Container = styled.div`
-  border: 1px solid black;
-  height: ${HEIGHT}px;
-  width: ${WIDTH}px;
+  display: flex;
 `;
 
-function draw(ctx, location) {
-  ctx.fillStyle = '#000000';
+function draw(ctx, location, fillStyle) {
+  ctx.fillStyle = fillStyle;
   ctx.save();
   //ctx.scale(SCALE, SCALE);  
   ctx.translate(location.x / SCALE - OFFSET, location.y / SCALE - OFFSET);
@@ -74,36 +81,72 @@ function usePersistentCanvas() {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
-    locations.forEach(location => draw(ctx, location));
+    locations.forEach(location => draw(ctx, location, '#000000'));
   });
   return [locations, setLocations, canvasRef];
 }
 
 function App() {
   const [locations, setLocations, canvasRef] = usePersistentCanvas();
+  const [index, setIndex] = React.useState(new KDBush([]));
+  const [range, setRange] = React.useState(50);
 
   function handleClear() {
     setLocations([]);
+    setIndex(new KDBush([]));
   }
   function handleUndo() {
     setLocations(locations.slice(0, -1));
   }
+  function handleIndex() {
+    setIndex(new KDBush(locations, p=>p.x, p=>p.y, 32, Int32Array));
+  }
+
+  function handleSearch(position){
+    const results = index.within(position.x, position.y, range).map(id => locations[id]);
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    locations.forEach(location => draw(ctx, location, '#000000'));
+    results.forEach(location => draw(ctx, location, "#ffa500"));
+  }
+  
+  function handleClick(x,y){
+    const newLocation = { x, y };
+    setLocations([...locations, newLocation]);
+  }
 
   return (
     <Container>
+      <ReactCursorPosition>
+        <Canvas
+          canvasRef={canvasRef}
+          handleClick={handleClick} 
+          handleSearch={handleSearch}
+        />
+      </ReactCursorPosition>
+
       <Controls>
-        <Button onClick={handleClear}>Clear</Button>
-        <Button onClick={handleUndo}>Undo</Button>
+        <Step>
+          <p>Step 1: Plot Coordinates</p>
+          <Button onClick={handleClear}>Clear</Button>
+          <Button onClick={handleUndo}>Undo</Button>
+        </Step>
+        <Step>
+          <p>Step 2: Specify Range of Search ({range}px)</p>
+          <input 
+            type="range" 
+            min="10"
+            max="250" 
+            value={range} 
+            onChange={(e)=>{setRange(e.target.value)}}
+            step="10"/>
+        </Step>
+        <Step>
+          <p>Step 3: Index and Hover over</p>
+          <Button onClick={handleIndex}>Index</Button>
+        </Step>
       </Controls>
-      <canvas
-        ref={canvasRef}
-        width={WIDTH}
-        height={HEIGHT}
-        onClick={e => {
-          const newLocation = { x: e.clientX, y: e.clientY };
-          setLocations([...locations, newLocation]);
-        }}
-      />
     </Container>
   )
 }
