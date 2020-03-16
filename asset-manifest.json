@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/spatialsearch/static/js/main.e79b8dfa.chunk.js",
-    "main.js.map": "/spatialsearch/static/js/main.e79b8dfa.chunk.js.map",
-    "runtime-main.js": "/spatialsearch/static/js/runtime-main.c0bb2d37.js",
-    "runtime-main.js.map": "/spatialsearch/static/js/runtime-main.c0bb2d37.js.map",
-    "static/js/2.30f8d090.chunk.js": "/spatialsearch/static/js/2.30f8d090.chunk.js",
-    "static/js/2.30f8d090.chunk.js.map": "/spatialsearch/static/js/2.30f8d090.chunk.js.map",
+    "main.js": "/spatialsearch/static/js/main.b28f5415.chunk.js",
+    "main.js.map": "/spatialsearch/static/js/main.b28f5415.chunk.js.map",
+    "runtime-main.js": "/spatialsearch/static/js/runtime-main.36c2d844.js",
+    "runtime-main.js.map": "/spatialsearch/static/js/runtime-main.36c2d844.js.map",
+    "static/js/2.885e5bf0.chunk.js": "/spatialsearch/static/js/2.885e5bf0.chunk.js",
+    "static/js/2.885e5bf0.chunk.js.map": "/spatialsearch/static/js/2.885e5bf0.chunk.js.map",
     "index.html": "/spatialsearch/index.html",
-    "precache-manifest.7d5828be8bffeb45854b180fa8a4e516.js": "/spatialsearch/precache-manifest.7d5828be8bffeb45854b180fa8a4e516.js",
+    "precache-manifest.469233360d5be10e96efbbcf63abe402.js": "/spatialsearch/precache-manifest.469233360d5be10e96efbbcf63abe402.js",
     "service-worker.js": "/spatialsearch/service-worker.js",
-    "static/js/2.30f8d090.chunk.js.LICENSE.txt": "/spatialsearch/static/js/2.30f8d090.chunk.js.LICENSE.txt"
+    "static/js/2.885e5bf0.chunk.js.LICENSE.txt": "/spatialsearch/static/js/2.885e5bf0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.c0bb2d37.js",
-    "static/js/2.30f8d090.chunk.js",
-    "static/js/main.e79b8dfa.chunk.js"
+    "static/js/runtime-main.36c2d844.js",
+    "static/js/2.885e5bf0.chunk.js",
+    "static/js/main.b28f5415.chunk.js"
   ]
 }
